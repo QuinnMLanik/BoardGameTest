@@ -8,23 +8,24 @@ public class Space
 
     public Space(SpaceEffect effect)
     {
+        this.effect = effect;
         this.connectedSpaces = new List<Space>();
     }
     
     public Space(Space connectedSpace, SpaceEffect effect)
     {
-        this.connectedSpaces = new List<Space>();
-        connectedSpaces.Add(connectedSpace);
+        this.effect = effect;
+        this.connectedSpaces = new List<Space>() { connectedSpace };
     }
 
-    public Space(List<Space> connectedSpaces, SpaceEffect spaceEffect)
+    public Space(List<Space> connectedSpaces, SpaceEffect effect)
     {
+        this.effect = effect;
         this.connectedSpaces = new List<Space>();
         foreach(Space space in connectedSpaces)
         {
             this.connectedSpaces.Add(space);
         }
-        this.effect = spaceEffect;
     }
 
     public void AddConnection(Space connection)
