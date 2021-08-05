@@ -26,6 +26,40 @@ public abstract class Slider
 
 }
 
+public class GeneralSlider : Slider
+{
+    public GeneralSlider(int max, int min, int initial)
+    {
+        this.Max = max;
+        this.Min = min;
+        this.Current = initial;
+    }
+    override
+    public void IncreaseBy(int value)
+    {
+        if (this.Current + value <= this.Max)
+        {
+            this.Current += value;
+        }
+        else
+        {
+            this.Current = this.Max;
+        }
+    }
+    override
+    public void DecreaseBy(int value)
+    {
+        if (this.Current - value > this.Min)
+        {
+            this.Current -= value;
+        }
+        else
+        {
+            this.Current = this.Min;
+        }
+    }
+}
+
 public class DemandSlider : Slider
 {
     public DemandSlider(int max, int min, int initial)
@@ -67,40 +101,6 @@ public class DemandSlider : Slider
                 this.Current = this.Min;
                 GameManager.stabilitySlider.DecreaseBy(1);
             }
-        }
-    }
-}
-
-public class GeneralSlider : Slider
-{
-    public GeneralSlider(int max, int min, int initial)
-    {
-        this.Max = max;
-        this.Min = min;
-        this.Current = initial;
-    }
-    override
-    public void IncreaseBy(int value)
-    {
-        if(this.Current + value <= this.Max)
-        {
-            this.Current += value;
-        }
-        else
-        {
-            this.Current = this.Max;
-        }
-    }
-    override
-    public void DecreaseBy(int value)
-    {
-        if (this.Current - value > 0)
-        {
-            this.Current -= value;
-        }
-        else
-        {
-            this.Current = this.Min;
         }
     }
 }
