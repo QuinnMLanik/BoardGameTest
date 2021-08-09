@@ -8,6 +8,13 @@ public class Deck : MonoBehaviour
     private List<Card> discardPile;
     private DeckType type;
 
+    // Allows access to the draw pile via "deck[i]" instead of "deck.drawPile[i]"
+    public Card this[int i]
+    { 
+        get { return drawPile[i]; }
+        private set { drawPile[i] = value; }
+    }
+
     public enum DeckType
     {
         Corn = 0,
@@ -17,20 +24,25 @@ public class Deck : MonoBehaviour
         Special = 4,
     }
 
+    /// <summary>
+    /// Creates and shuffles a deck
+    /// </summary>
+    /// <param name="drawPile">The list of cards contained in the deck</param>
+    /// <param name="type">The type of deck</param>
     public Deck(List<Card> drawPile, DeckType type)
     {
         this.drawPile = drawPile;
         this.discardPile = new List<Card>();
         this.type = type;
-        Shuffle(drawPile);
+        Shuffle(this);
     }
 
     /// <summary>
     /// Executes a number of random card location swaps determined by the size of the deck being shuffled
     /// </summary>
-    public static void Shuffle(List<Card> deck)
+    public static void Shuffle(Deck deck)
     {
-        int n = deck.Count;
+        int n = deck.drawPile.Count;
         while (n > 1)
         {
             n--;
@@ -54,7 +66,7 @@ public class Deck : MonoBehaviour
             RemakeDeck(deck);
         }
 
-        Card draw = deck.drawPile[0];
+        Card draw = deck[0];
         deck.drawPile.Remove(draw);
         return draw;
     }
@@ -67,6 +79,6 @@ public class Deck : MonoBehaviour
     {
         // Make new draw pile out of the discard pile, then reshuffle. This does/should not recapture any cards currently held by players.
         deck.drawPile.AddRange(deck.discardPile);
-        Shuffle(deck.drawPile);
+        Shuffle(deck);
     }
 }
