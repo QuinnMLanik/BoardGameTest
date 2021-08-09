@@ -35,10 +35,38 @@ public class Deck : MonoBehaviour
         {
             n--;
             // Pick an element of the list to swap
-            int k = Random.Range(0, n - 1);
+            int k = Random.Range(0, n);
             Card value = deck[k];
             deck[k] = deck[n];
             deck[n] = value;
         }
+    }
+
+    /// <summary>
+    /// Draws the first card in the deck and does not replace it
+    /// </summary>
+    /// <returns></returns>
+    public static Card DrawCardFromDeck(Deck deck)
+    {
+        // In case any deck ever fully runs out of cards
+        if (deck.drawPile.Count == 0)
+        {
+            RemakeDeck(deck);
+        }
+
+        Card draw = deck.drawPile[0];
+        deck.drawPile.Remove(draw);
+        return draw;
+    }
+
+    /// <summary>
+    /// Refills the deck's draw pile from the cards in the discard pile, then reshuffles the draw pile.
+    /// </summary>
+    /// <param name="deck"></param>
+    private static void RemakeDeck(Deck deck)
+    {
+        // Make new draw pile out of the discard pile, then reshuffle. This does/should not recapture any cards currently held by players.
+        deck.drawPile.AddRange(deck.discardPile);
+        Shuffle(deck.drawPile);
     }
 }
