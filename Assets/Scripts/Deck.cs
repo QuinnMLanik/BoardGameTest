@@ -9,10 +9,10 @@ public class Deck : MonoBehaviour
     private DeckType type;
 
     // Allows access to the draw pile via "deck[i]" instead of "deck.drawPile[i]"
-    public Card this[int i]
+    private Card this[int i]
     { 
         get { return drawPile[i]; }
-        private set { drawPile[i] = value; }
+        set { drawPile[i] = value; }
     }
 
     public enum DeckType
