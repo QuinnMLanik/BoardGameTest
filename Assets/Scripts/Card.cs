@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    private int id;
-    private string cardName;
-    private string description;
-    private Action cardEffect;
-    private UseType type;
+    public int id { get; private set; }
+    public string cardName { get; private set; }
+    public string description { get; private set; }
+    public Action cardEffect { get; private set; }
+    public UseType type { get; private set; }
 
     public enum UseType
     {
