@@ -57,6 +57,7 @@ public class CardParser : MonoBehaviour
         // Create Cards out of CardData
         foreach(CardData cd in temp)
         {
+            // Make sure to create actual duplicate cards for those that have more than one
             for(int i = 0; i < cd.quantity; i++)
             {
                 Card c = new Card(cd.cardId, cd.cardName, cd.description, GameManager.GetActionFromID(cd.effectId), Card.GetUseTypeFromString(cd.cardUseType));
