@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Class that handles the game logic
+/// </summary>
 public class GameManager
 {
     public static StabilitySlider stabilitySlider = new StabilitySlider(8, 0, 8);
@@ -14,6 +18,16 @@ public class GameManager
     public static GeneralSlider cornVictory = new GeneralSlider(22, 18, 20);
     public static GeneralSlider fuelVictory = new GeneralSlider(8, 4, 6);
     public static GeneralSlider beefVictory = new GeneralSlider(6, 2, 4);
+    
+    public static List<Player> players;
+    public static Dictionary<int, Action> cardEffectMap = new Dictionary<int, Action>();
+
+    public static Action GetActionFromID(int cardId)
+    {
+        Action effect;
+        cardEffectMap.TryGetValue(cardId, out effect);
+        return effect;
+    }
 }
 
 public abstract class Slider
@@ -34,8 +48,8 @@ public class GeneralSlider : Slider
         this.Min = min;
         this.Current = initial;
     }
-    override
-    public void IncreaseBy(int value)
+    
+    public override void IncreaseBy(int value)
     {
         if (this.Current + value <= this.Max)
         {
@@ -46,8 +60,8 @@ public class GeneralSlider : Slider
             this.Current = this.Max;
         }
     }
-    override
-    public void DecreaseBy(int value)
+    
+    public override void DecreaseBy(int value)
     {
         if (this.Current - value > this.Min)
         {
@@ -68,8 +82,8 @@ public class DemandSlider : Slider
         this.Min = min;
         this.Current = initial;
     }
-    override
-    public void IncreaseBy(int value)
+    
+    public override void IncreaseBy(int value)
     {
         while (value > 0)
         {
@@ -86,8 +100,7 @@ public class DemandSlider : Slider
         }
     }
 
-    override
-    public void DecreaseBy(int value)
+    public override void DecreaseBy(int value)
     {
         while (value > 0)
         {
@@ -113,8 +126,8 @@ public class StabilitySlider : Slider
         this.Min = min;
         this.Current = initial;
     }
-    override
-    public void IncreaseBy(int value)
+    
+    public override void IncreaseBy(int value)
     {
         if (this.Current + value <= this.Max)
         {
@@ -125,8 +138,8 @@ public class StabilitySlider : Slider
             this.Current = this.Max;
         }
     }
-    override
-    public void DecreaseBy(int value)
+    
+    public override void DecreaseBy(int value)
     {
         if(this.Current - value > this.Min)
         {
