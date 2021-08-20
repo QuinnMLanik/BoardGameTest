@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class Deck
 {
     private List<Card> drawPile;
     private List<Card> discardPile;
@@ -20,9 +20,11 @@ public class Deck : MonoBehaviour
         Corn = 0,
         Cattle = 1,
         Beef = 2,
-        Ethanol = 3,
+        Fuel = 3,
         Special = 4,
     }
+
+    public int Count => drawPile.Count;
 
     /// <summary>
     /// Creates and shuffles a deck
@@ -68,6 +70,17 @@ public class Deck : MonoBehaviour
 
         Card draw = deck[0];
         deck.drawPile.Remove(draw);
+        return draw;
+    }
+
+    public Card DrawCardFromDeck()
+    {
+        if(this.drawPile.Count == 0)
+        {
+            RemakeDeck(this);
+        }
+        Card draw = this.drawPile[0];
+        this.drawPile.Remove(draw);
         return draw;
     }
 

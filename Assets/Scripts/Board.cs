@@ -17,6 +17,15 @@ public class Board
     public List<Space> teleportSpaces;
     public List<Player> players;
 
+    public Board()
+    {
+        TeleportSpaces = new List<Space>();
+        SetUpCornArea();
+        SetUpCattleArea();
+        SetUpBeefArea();
+        SetUpFuelArea();
+    }
+
     private void SetUpCornArea()
     {
         StartingSpace = new Space(SpaceEffect.ProduceCorn);

@@ -3,19 +3,22 @@ using System.Collections.Generic;
 
 public class Space
 {
-    private SpaceEffect effect;
-    private List<Space> connectedSpaces;
+    public SpaceEffect effect;
+    public List<Space> connectedSpaces;
+    public bool hasOption;
 
     public Space(SpaceEffect effect)
     {
         this.effect = effect;
         this.connectedSpaces = new List<Space>();
+        hasOption = connectedSpaces.Count > 1 ? true : false;
     }
     
     public Space(Space connectedSpace, SpaceEffect effect)
     {
         this.effect = effect;
         this.connectedSpaces = new List<Space>() { connectedSpace };
+        hasOption = connectedSpaces.Count > 1 ? true : false;
     }
 
     public Space(List<Space> connectedSpaces, SpaceEffect effect)
@@ -26,6 +29,7 @@ public class Space
         {
             this.connectedSpaces.Add(space);
         }
+        hasOption = connectedSpaces.Count > 1 ? true : false;
     }
 
     public void AddConnection(Space connection)
